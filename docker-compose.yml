@@ -1,0 +1,50 @@
+services:
+  sie-joy-bot:
+    image: nousresearch/hermes-agent@sha256:9c5561579f3ffdf333401797094ac3a743738d6c25d40f4331c7bf77b694238d
+    container_name: sie-joy-bot
+    restart: unless-stopped
+    command: gateway run
+    env_file: ./data/.env
+    environment:
+      - TZ=America/Sao_Paulo
+      - HERMES_UID=1000
+      - HERMES_GID=1000
+      - JOY_DIR=/opt/joy
+    volumes:
+      - ./data:/opt/data
+      - ./joy:/opt/joy
+    ports:
+      - "127.0.0.1:8646:8642"
+      - "127.0.0.1:9122:9119"
+    expose:
+      - "8660"
+    networks:
+      - services_internal
+      - supabase_network
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    mem_limit: 1g
+    cpus: 1.0
+    pids_limit: 256
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8660/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    labels:
+      paulojr.stack: "sie-joy-bot"
+      paulojr.type: "bot"
+      paulojr.origin: "dockerhub"
+
+networks:
+  services_internal:
+    external: true
+  supabase_network:
+    external: true
+    name: supabase_default

@@ -1,0 +1,25 @@
+# Hermes home is runtime state (sessions, databases, logs, tokens): version only the config template
+data/*
+!data/config.yaml
+!data/.env.example
+# secrets
+.env
+*.env
+!*.env.example
+*.pem
+*.key
+google_*.json
+credentials.json
+# runtime
+*.lock
+*.pid
+*.sock
+*.db
+*.db-*
+*.log
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+# vendored libraries (install with pip, see README)
+joy/_vendor/

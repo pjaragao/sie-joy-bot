@@ -1,0 +1,129 @@
+model:
+  default: gemini-flash-latest
+  context_length: 64000   # mínimo do Hermes; a compactação abaixo dispara cedo (o agy recebe o prompt num argumento)
+  provider: agy
+  api_mode: chat_completions
+
+providers:
+  agy:
+    base_url: http://172.26.0.1:8787/v1
+    key_env: AGY_SHIM_TOKEN
+    api_mode: chat_completions
+
+fallback_providers:
+  - provider: openrouter
+    model: nvidia/nemotron-3-ultra-550b-a55b:free
+  - provider: openrouter
+    model: google/gemma-4-31b-it:free
+  - provider: openrouter
+    model: nvidia/nemotron-3.5-lightning:free
+
+agent:
+  max_turns: 8
+  reasoning_effort: low
+  verbose: false
+
+auxiliary:
+  compression:
+    provider: agy
+    model: gemini-flash-latest
+    reasoning_effort: low
+  title_generation:
+    provider: agy
+    model: gemini-flash-latest
+    reasoning_effort: low
+  memory_query_rewrite:
+    provider: agy
+    model: gemini-flash-latest
+    reasoning_effort: low
+  profile_describer:
+    provider: agy
+    model: gemini-flash-latest
+    reasoning_effort: low
+
+terminal:
+  backend: local
+  cwd: /opt/data/workspace
+
+plugins:
+  enabled:
+    - evolution-whatsapp
+    - sie-joy-core
+
+platform_toolsets:
+  evolution:
+    - sie_joy
+  cron:
+    - sie_joy
+  cli:
+    - sie_joy
+  api_server:
+    - sie_joy
+
+group_sessions_per_user: false
+
+compression:
+  enabled: true
+  threshold: 0.30
+  target_ratio: 0.2
+  protect_last_n: 6
+  protect_first_n: 2
+  proactive_prune_tokens: 12000
+  proactive_prune_min_result_chars: 1500
+  proactive_prune_min_reclaim_tokens: 2000
+
+tts:
+  provider: edge
+  edge:
+    voice: pt-BR-AntonioNeural
+
+voice:
+  auto_tts: false
+
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  memory_char_limit: 6000
+  user_char_limit: 1500
+  nudge_interval: 6
+
+display:
+  busy_input_mode: queue
+  busy_ack_enabled: false
+  show_reasoning: false
+  streaming: false
+  platforms:
+    evolution:
+      tool_progress: 'off'
+      interim_assistant_messages: false
+      long_running_notifications: false
+      busy_ack_detail: false
+      streaming: false
+
+streaming:
+  enabled: false
+
+stt:
+  enabled: false
+
+telemetry:
+  shared_metrics:
+    enabled: false
+
+updates:
+  pre_update_backup: false
+
+timezone: America/Sao_Paulo
+
+onboarding:
+  seen:
+    profile_build_offered: true
+
+tools:
+  tool_search:
+    enabled: "off"
+
+platforms:
+  evolution:
+    gateway_restart_notification: false
+_config_version: 51
