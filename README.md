@@ -29,30 +29,11 @@ duplicate entries and "did we actually buy that or just talk about it?" argument
 **only answers when called**, and it follows one golden rule: *something only counts as done when someone clearly says so*
 ("paid", "done", "invoice attached"). Quotes and brainstorming stay open.
 
-## 💬 What it looks like on WhatsApp
+## 💬 How it behaves in the group
 
-> Illustrative conversations in the group's language (Brazilian Portuguese) with fictional data. English notes below each image.
-
-<table>
-<tr>
-<td width="50%" valign="top">
-
-**Booking a reimbursement**
-<img src="docs/img/reimbursement.png" alt="Reimbursement booked from a chat message and a receipt photo">
-
-*A supplier is paid by Pix and a receipt photo is posted. When asked, Hermes OCRs the receipt, books a reimbursement in the ERP (supplier, amount, ledger account, cost center, due date = the 10th of next month), and answers with a summary. A mere quote is kept as an **open pending item**, never booked.*
-
-</td>
-<td width="50%" valign="top">
-
-**Duplicate protection**
-<img src="docs/img/duplicate.png" alt="Duplicate reimbursement detected">
-
-*Asked to book the same amount twice, the tool flags a possible duplicate and Hermes asks instead of repeating. Corrections are made by **editing** the existing entry, never by creating negative entries.*
-
-</td>
-</tr>
-</table>
+- A supplier is paid by Pix and a receipt photo is posted. When someone says "Hermes, book this reimbursement", it OCRs the receipt, books it in the ERP (supplier, amount, ledger account, cost center, due date = the 10th of next month) and replies with a summary.
+- A quote or an idea is kept as an **open pending item** and never booked until someone writes "done", "paid" or attaches the invoice.
+- Asked to book the same amount twice, the tool flags a **possible duplicate** and Hermes asks instead of repeating. Corrections **edit** the existing entry; negative entries are never created.
 
 ## ✨ Features
 
